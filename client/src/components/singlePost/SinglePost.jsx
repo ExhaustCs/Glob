@@ -1,37 +1,49 @@
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 import "./singlePost.css";
 
 export default function SinglePost() {
+  const location = useLocation();
+  const path = location.pathname.split("/")[2];
+  const [post, setPost] = useState({});
+
+  useEffect(() => {
+    const getPost = async () => {
+      const response = await axios(`/post/${path}`);
+      setPost(response.data);
+    };
+    getPost();
+  }, [path]);
+
   return (
     <div className="singlePost">
       <div className="singlePostWrapper">
-        <img
-          className="singlePostImg"
-          src="https://w.wallhaven.cc/full/x8/wallhaven-x8z9yo.jpg"
-          alt=""
-        />
-        <h1 className="singlePostTitle">
-          Blog Post #1
+        {post.photo && (
+          <img className="singlePostImg" src={post.photo} alt="" />
+        )}
+
+        <h1
+          style={{ "text-transform": "capitalize" }}
+          className="singlePostTitle"
+        >
+          {post.title}
           <div className="singlePostEdit">
             <i className="singlePostIcon fas fa-edit"></i>
             <i className="singlePostIcon fas fa-trash"></i>
           </div>
         </h1>
         <div className="singlePostInfo">
-          <span className="singlePostAuthor">
-            Author: <b>Chris</b>
+          <Link className="link" to={`/?user=${post.username}`}>
+            <span className="singlePostAuthor">
+              Author: <b>{post.username}</b>
+            </span>
+          </Link>
+          <span className="singlePostDate">
+            {new Date(post.createdAt).toDateString()}
           </span>
-          <span className="singlePostDate">1 hour ago</span>
         </div>
-        <p className="singlePostDesc">
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Repellendus
-          blanditiis cupiditate dolor optio nisi dolorem qui molestiae,
-          obcaecati fuga commodi. Numquam magni necessitatibus doloribus in
-          dolorem alias, sed incidunt aut. Lorem ipsum dolor sit amet,
-          consectetur adipisicing elit. Aliquam, eos reiciendis? Deleniti
-          aperiam, dignissimos consectetur maxime, sint temporibus ipsam quae
-          vero placeat deserunt voluptas error tenetur perspiciatis inventore
-          rem corrupti?
-        </p>
+        <p className="singlePostDesc">{post.description}</p>
       </div>
     </div>
   );

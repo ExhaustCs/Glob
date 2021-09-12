@@ -3,7 +3,7 @@ import pfp from "./pfp2.png";
 import { Link } from "react-router-dom";
 
 export default function TopBar() {
-  const user = true;
+  const user = false;
   return (
     <div className="top">
       <div className="topLeft">

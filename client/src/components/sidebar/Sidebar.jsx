@@ -1,7 +1,20 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./sidebar.css";
 import aboutMeProfile from "../topbar/pfp2.png";
+import axios from "axios";
+import { Link } from "react-router-dom";
 export default function Sidebar() {
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      const response = await axios("/categories");
+      console.log(response.data);
+      setCategories(response.data);
+    };
+
+    fetchCategories();
+  }, []);
   return (
     <div className="sidebar">
       <div className="sidebarItem">
@@ -17,10 +30,11 @@ export default function Sidebar() {
       <div className="sidebarItem">
         <span className="sidebarTitle">CATEGORIES</span>
         <ul className="sidebarList">
-          <li className="sidebarListItem">Life</li>
-          <li className="sidebarListItem">Music</li>
-          <li className="sidebarListItem">Style</li>
-          <li className="sidebarListItem">Tech</li>
+          {categories.map((cat) => (
+            <Link to={`/?cat=${cat.name}`} className="link">
+              <li className="sidebarListItem">{cat.name}</li>
+            </Link>
+          ))}
         </ul>
       </div>
       <div className="sidebarItem">
