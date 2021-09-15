@@ -8,7 +8,7 @@
       rgba(255, 255, 255, 0.5),
       rgba(255, 255, 255, 0.5)
     ),
-    url("http://w.wallhaven.cc/full/p2/wallhaven-p2oj5p.jpg");
+    url('http://w.wallhaven.cc/full/p2/wallhaven-p2oj5p.jpg');
   background-size: cover;
 }
 
@@ -46,6 +46,11 @@
   border: none;
   border-radius: 10px;
   text-align: center;
+}
+
+.loginButton:disabled {
+  cursor: not-allowed;
+  background-color: coral;
 }
 
 .loginRegisterButton {

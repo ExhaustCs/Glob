@@ -1,9 +1,12 @@
-import "./topbar.css";
-import pfp from "./pfp2.png";
-import { Link } from "react-router-dom";
+import './topbar.css';
+import pfp from './pfp2.png';
+import { Link } from 'react-router-dom';
+import { useContext } from 'react';
+import { Context } from '../../context/Context';
+import { Logout } from '../../context/Actions';
 
 export default function TopBar() {
-  const user = false;
+  const { user, dispatch } = useContext(Context);
   return (
     <div className="top">
       <div className="topLeft">
@@ -34,18 +37,17 @@ export default function TopBar() {
               CREATE POST
             </Link>
           </li>
-          {user && <li className="topListItem">LOGOUT</li>}
+          {user && (
+            <li className="topListItem" onClick={() => dispatch(Logout())}>
+              LOGOUT
+            </li>
+          )}
         </ul>
       </div>
       <div className="topRight">
         {user ? (
           <Link className="link" to="/settings">
-            <img
-              className="topImg"
-              //   src="https://w.wallhaven.cc/full/x8/wallhaven-x8z9yo.jpg"
-              src={pfp}
-              alt=""
-            />
+            <img className="topImg" src={user.profilePic} alt="" />
           </Link>
         ) : (
           <ul className="topList">
