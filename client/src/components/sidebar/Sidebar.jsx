@@ -1,15 +1,14 @@
-import React, { useEffect, useState } from "react";
-import "./sidebar.css";
-import aboutMeProfile from "../topbar/pfp2.png";
-import axios from "axios";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from 'react';
+import './sidebar.css';
+import aboutMeProfile from '../topbar/pfp2.png';
+import axios from 'axios';
+import { Link } from 'react-router-dom';
 export default function Sidebar() {
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
     const fetchCategories = async () => {
-      const response = await axios("/categories");
-      console.log(response.data);
+      const response = await axios('/categories');
       setCategories(response.data);
     };
 

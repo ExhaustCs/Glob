@@ -1,11 +1,16 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import "./post.css";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import './post.css';
 
 export default function Post({ post }) {
+  const publicFolder = 'http://localhost:8080/images/';
   return (
     <div className="post">
-      {post.photo && <img className="postImg" src={post.photo} alt="" />}
+      <Link to={`/post/${post._id}`}>
+        {post.photo && (
+          <img className="postImg" src={publicFolder + post.photo} alt="" />
+        )}
+      </Link>
       <div className="postInfo">
         <div className="postCats">
           {post.categories.map((cat) => (

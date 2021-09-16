@@ -1,7 +1,8 @@
 console.clear();
-const express = require('express');
 const mongoose = require('mongoose');
+const express = require('express');
 const multer = require('multer');
+const cors = require('cors');
 const path = require('path');
 const authRoute = require('./routes/auth');
 const userRoute = require('./routes/users');
@@ -12,8 +13,9 @@ require('dotenv').config();
 
 const app = express();
 const PORT = 8080;
+app.use(cors());
 app.use(express.json()); // -> Allows to parse json data
-app.use('/images', express.static(path.join(__dirname, '/images')));
+app.use('/images', express.static(path.join(__dirname, '../images')));
 
 mongoose
   .connect(process.env.MONGODB_URL)
