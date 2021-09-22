@@ -6,19 +6,19 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  font-family: "Varela", sans-serif;
-  color: grey;
+  font-family: 'Lora', serif;
+  color: white;
 }
 
 .headerTitleSm {
   position: absolute;
-  top: 6%;
+  top: 18%;
   font-size: 20px;
 }
 
 .headerTitleLg {
   position: absolute;
-  top: 10%;
+  top: 20%;
   font-size: 100px;
 }
 

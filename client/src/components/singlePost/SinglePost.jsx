@@ -1,6 +1,6 @@
 import './singlePost.css';
 import axios from 'axios';
-import { useContext, useEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Context } from '../../context/Context';
 
@@ -14,8 +14,8 @@ export default function SinglePost() {
   const [desc, setDesc] = useState('');
   const [file, setFile] = useState(null);
   const [isUpdate, setUpdate] = useState(false);
-  const [image, setImage] = useState();
   const { user } = useContext(Context);
+
   useEffect(() => {
     const getPost = async () => {
       const response = await axios(`/post/${path}`);
@@ -28,10 +28,10 @@ export default function SinglePost() {
 
   const handleDelete = async () => {
     try {
-      const response = await axios.delete('/post/' + path, {
+      await axios.delete('/post/' + path, {
         data: { username: user.username },
       });
-      window.location.replace('/');
+      setUpdate(false);
     } catch (error) {
       console.log(error);
     }
@@ -60,28 +60,19 @@ export default function SinglePost() {
       console.log('update:', response);
     } catch (error) {}
   };
-
-  // const clearImage = (e) => {
-  //   // console.log(imgRef.current.src);
-  //   // delete ref
-  //   setFile(e.target.files[0]);
-  // };
-
   return (
     <div className='singlePost'>
       <div className='singlePostWrapper'>
         {post.photo && (
           <img
             className='singlePostImg'
-            src={publicFolder + post.photo}
-            // style={{ display: !image ?? 'none' }}
+            src={file ? URL.createObjectURL(file) : publicFolder + post.photo}
             alt=''
           />
         )}
 
         {isUpdate ? (
           <>
-            {file && <img src={URL.createObjectURL(file)} alt=''></img>}
             <label htmlFor='fileInput'>
               <i className='writeIcon fas fa-plus'></i>
             </label>
@@ -104,7 +95,7 @@ export default function SinglePost() {
             style={{ textTransform: 'capitalize' }}
             className='singlePostTitle'
           >
-            {post.title}
+            {title}
             {post.username === user?.username && (
               <div className='singlePostEdit'>
                 <i
@@ -136,7 +127,7 @@ export default function SinglePost() {
             onChange={(e) => setDesc(e.target.value)}
           />
         ) : (
-          <p className='singlePostDesc'>{post.description}</p>
+          <p className='singlePostDesc'>{desc}</p>
         )}
         {isUpdate ? (
           <button className='singlePostButton' onClick={handleUpdate}>

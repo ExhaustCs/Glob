@@ -7,7 +7,7 @@ import SinglePage from './pages/singlePage/SinglePage';
 import Write from './pages/write/Write';
 import { Context } from './context/Context';
 
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { useContext } from 'react';
 
 function App() {
@@ -16,22 +16,22 @@ function App() {
     <Router>
       <TopBar />
       <Switch>
-        <Route exact path="/">
+        <Route exact path='/'>
           <Home />
         </Route>
-        <Route exact path="/register">
+        <Route exact path='/register'>
           {user ? <Home /> : <Register />}
         </Route>
-        <Route exact path="/login">
+        <Route exact path='/login'>
           <Login />
         </Route>
-        <Route exact path="/settings">
+        <Route exact path='/settings'>
           <Settings />
         </Route>
-        <Route exact path="/write">
-          <Write />
+        <Route exact path='/write'>
+          {user ? <Write /> : <Home />}
         </Route>
-        <Route exact path="/post/:postId">
+        <Route exact path='/post/:postId'>
           <SinglePage />
         </Route>
       </Switch>

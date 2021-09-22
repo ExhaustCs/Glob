@@ -20,12 +20,12 @@ router.put('/:id', async (req, res) => {
         { new: true }
       );
 
-      res.status(200).json(updatedUser);
+      res.status(200).json(updateUser);
     } catch (error) {
-      res.status(500).send(error.code);
+      res.status(500).json(error);
     }
   } else {
-    res.status(401).send('You dont have permissions to this account');
+    res.status(401).json('You dont have permissions to this account');
   }
 });
 
@@ -39,6 +39,7 @@ router.delete('/:id', async (req, res) => {
         await User.findByIdAndDelete(req.params.id);
         res.send({ status: 'success' });
       } catch (err) {
+        console.log(err);
         res.status(500).json(err);
       }
     } catch (err) {

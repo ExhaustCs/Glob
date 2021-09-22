@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react";
-import { useLocation } from "react-router";
-import axios from "axios";
-import "./home.css";
-import Header from "../../components/header/Header";
-import Posts from "../../components/posts/Posts";
-import Sidebar from "../../components/sidebar/Sidebar";
+import { useEffect, useState } from 'react';
+import { useLocation } from 'react-router';
+import axios from 'axios';
+import './home.css';
+import Header from '../../components/header/Header';
+import Posts from '../../components/posts/Posts';
+import Sidebar from '../../components/sidebar/Sidebar';
 
 export default function Home() {
   const [posts, setPosts] = useState([]);
@@ -13,15 +13,19 @@ export default function Home() {
 
   useEffect(() => {
     const fetchPosts = async () => {
-      const response = await axios("/post" + search);
-      setPosts(response.data);
+      try {
+        const response = await axios('/post' + search);
+        setPosts(response.data);
+      } catch (error) {
+        console.error(error);
+      }
     };
     fetchPosts();
   }, [search]);
   return (
     <>
       <Header />
-      <div className="home">
+      <div className='home'>
         <Posts posts={posts} />
         <Sidebar />
       </div>
