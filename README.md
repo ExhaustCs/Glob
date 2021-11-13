@@ -1,4 +1,4 @@
 
 #  A simple blog webpage
 
-MERN(MongoDBExpress React NodeJs) Stack
+MERN(MongoDB Express React NodeJs) Stack
