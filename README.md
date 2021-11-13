@@ -1,4 +1,4 @@
 
-# [MERN] Blog Website
+#  A simple blog webpage
 
-Followed tutorial by Lama Dev : https://www.youtube.com/watch?v=tlTdbc5byAs 
+MERN(MongoDBExpress React NodeJs) Stack
